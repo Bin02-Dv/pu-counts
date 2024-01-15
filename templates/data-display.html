@@ -13,17 +13,50 @@
             <img src="{% static 'img/Data-Collection.jpg' %}" alt="">
         </div>
         <h2>Polling Unit Counter</h2>
-        <form method="post">
+        <form method="post" id="pu">
+            {% csrf_token %}
             <div class="input">
-                <input type="text" name="" id="" placeholder="Enter a Local Government Name">
+                <input type="text" name="lga" id="lga" placeholder="Enter a Local Government Name">
             </div>
             <div class="btn">
                 <button>Count</button>
             </div>
             <div class="result">
-                <span>200</span>
+                <span>--</span>
             </div>
         </form>
     </div>
+
+    <script src="{% static 'js/JQ.js' %}"></script>
+    <script>
+        // ajax
+        $(document).on('submit', '#pu', function (e){
+            e.preventDefault();
+
+            var display = $('span');
+
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                type: 'POST',
+                url: '/',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response){
+                    var success = response['success'];
+                    if(success){
+                        // NORMAL ALERT warning, error, success
+                        display.html('');
+                        display.append(response['message']);
+                    }else{
+                        display.html('');
+                        display.append(response['message']);
+                    }
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
