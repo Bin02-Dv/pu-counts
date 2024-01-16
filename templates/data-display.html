@@ -29,6 +29,7 @@
     </div>
 
     <script src="{% static 'js/JQ.js' %}"></script>
+
     <script>
         // ajax
         $(document).on('submit', '#pu', function (e){
@@ -48,11 +49,55 @@
                     var success = response['success'];
                     if(success){
                         // NORMAL ALERT warning, error, success
+                        // text animation section
                         display.html('');
-                        display.append(response['message']);
+                        // display.append(response['message']);
+
+                        const textContainer = document.getElementById('result');
+                        const animatedText = document.querySelector('span');
+
+                        // Define the text you want to animate
+                        const textToAnimate = response['message'];
+
+                        // Define the animation delay in milliseconds (e.g., 100ms)
+                        const animationDelay = 50;
+
+                        let letterIndex = 0;
+
+                        function animateText() {
+                            if (letterIndex < textToAnimate.length) {
+                                animatedText.innerHTML += textToAnimate.charAt(letterIndex);
+                                letterIndex++;
+                                setTimeout(animateText, animationDelay);
+                            }
+                        }
+
+                        // Start the animation
+                        animateText();
                     }else{
                         display.html('');
-                        display.append(response['message']);
+                        // display.append(response['message']);
+                        const textContainer = document.getElementById('result');
+                        const animatedText = document.querySelector('span');
+
+                        // Define the text you want to animate
+                        const textToAnimate = response['message'];
+
+                        // Define the animation delay in milliseconds (e.g., 100ms)
+                        const animationDelay = 50;
+
+                        let letterIndex = 0;
+
+                        function animateText() {
+                            if (letterIndex < textToAnimate.length) {
+                                animatedText.innerHTML += textToAnimate.charAt(letterIndex);
+                                letterIndex++;
+                                setTimeout(animateText, animationDelay);
+                            }
+                        }
+
+                        // Start the animation
+                        animateText();
                     }
                 }
             });
